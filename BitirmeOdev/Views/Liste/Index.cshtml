@@ -1,0 +1,20 @@
+﻿@model List<BitirmeOdev.Models.Liste>
+
+<a href="Liste/Olustur" class="btn btn-primary">Ekle</a>
+<table>
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td><a href="/Liste/Detay/@item.Id" class="btn btn-primary">Detay</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

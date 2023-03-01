@@ -1,0 +1,13 @@
+﻿@model BitirmeOdev.Models.Liste
+
+<form asp-action="Olustur" method="post">
+  <div class="form-group">
+    <label asp-for="Ad"></label>
+    <input type="text" class="form-control" asp-for="Ad">
+  </div>
+  <div class="form-group">
+    <label asp-for="Aciklama"></label>
+    <input type="text" class="form-control" asp-for="Aciklama">
+  </div>
+  <input type="submit" class="btn btn-primary" name="Kaydet" />
+</form>

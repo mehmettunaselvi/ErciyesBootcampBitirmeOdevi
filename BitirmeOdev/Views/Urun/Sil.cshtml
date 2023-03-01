@@ -1,0 +1,9 @@
+﻿@model BitirmeOdev.Models.Urun
+
+
+<form method="post" asp-action="Sil" asp-route-id="@Model.Id">
+    <p>Urun: @Model.Ad</p>
+    <p>Emin misiniz?</p>
+    <input type="submit" name="Sil" class="btn btn-danger" />
+    <a asp-controller="Urun" asp-action="Liste">Hayır</a>
+</form>

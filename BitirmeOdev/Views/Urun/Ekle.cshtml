@@ -1,0 +1,26 @@
+﻿@model BitirmeOdev.Models.Urun
+
+
+<form asp-action="Ekle" method="post">
+    <div class="form-group">
+        <label asp-for="Ad" class="form-control"></label>
+        <input asp-for="Ad" class="form-control" />
+        <span asp-validation-for="Ad"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Marka" class="form-control"></label>
+        <input asp-for="Marka" class="form-control" />
+        <span asp-validation-for="Marka"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Aciklama" class="form-control"></label>
+        <textarea asp-for="Aciklama" class="form-control"></textarea>
+        <span asp-validation-for="Aciklama"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gorsel" class="form-control"></label>
+        <input asp-for="Gorsel" class="form-control" />
+        <span asp-validation-for="Gorsel" class="form-control"></span>
+    </div>
+    <input type="submit" name="Ekle" class="btn btn-primary "/>
+</form>

@@ -10,6 +10,11 @@ namespace BitirmeOdev.Models
     // TODO: (Opsiyonel) Kullanici Giris icin yalnızca email ve sifre degiskeni iceren bir viewmodel olustur.
     public class Kullanici
     {
+        public Kullanici()
+        {
+            Listeler = new List<Liste>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -24,5 +29,7 @@ namespace BitirmeOdev.Models
 
         [Required, MinLength(8), MaxLength(16)]
         public string Sifre { get; set; }
+
+        public virtual List<Liste> Listeler { get; set; }
     }
 }

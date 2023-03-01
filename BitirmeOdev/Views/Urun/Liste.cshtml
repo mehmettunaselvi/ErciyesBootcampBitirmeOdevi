@@ -1,0 +1,29 @@
+﻿@model List<BitirmeOdev.Models.Urun>
+
+<a href="/Urun/Ekle" class="btn btn-primary">Ekle</a>
+<table>
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Açıklama</th>
+            <th>Marka</th>
+            <th>Görsel</th>
+            <th>Aksiyon</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td>@item.Aciklama</td>
+                <td>@item.Marka</td>
+                <td>@item.Gorsel</td>
+                <td>
+                    <a href="/Urun/Duzenle/@item.Id" class="btn btn-secondary">Düzenle</a>
+                    <a href="/Urun/Sil/@item.Id" class="btn btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

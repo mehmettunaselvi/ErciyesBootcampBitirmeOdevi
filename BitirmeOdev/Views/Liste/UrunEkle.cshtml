@@ -1,0 +1,21 @@
+﻿@model BitirmeOdev.Models.ViewModel.UrunMiktar
+@{
+    Urun urun = ViewData["urun"] as Urun;
+}
+
+<h1>@urun.Ad</h1>
+
+<p>@urun.Aciklama</p>
+
+<img src="@urun.Gorsel"/>
+
+<hr />
+
+<form asp-action="UrunEkle" method="post">
+  <input type="hidden" asp-for="UrunId" value="@urun.Id" />
+  <div class="form-group">
+    <label asp-for="Miktar"></label>
+    <input type="number" class="form-control" asp-for="Miktar" />
+  </div>
+  <input type="submit" class="btn btn-primary" name="Kaydet" />
+</form>

@@ -15,13 +15,9 @@ namespace BitirmeOdev.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Giris", "Kullanici");
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

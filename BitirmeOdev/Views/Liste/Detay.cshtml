@@ -16,7 +16,8 @@
 <hr/>
 
 <h2>Listeki Ürünler</h2>
-<table>
+<a href="/Liste/Urunler/@Model.Id" class="btn btn-primary">Ürün Ekle</a>
+<table class="table">
     <thead>
         <tr>
             <th scope="col">Ad</th>
@@ -30,7 +31,7 @@
             <tr>
                 <td>@item.Urun.Ad</td>
                 <td>@item.Miktar</td>
-                <td><button class="btn btn-danger" id="uruncikar" name="@item.Id" onclick="uruncikar(@item.Id)">Ürün Çıkar</button></td>
+                <td><button class="btn btn-danger" id="uruncikar_@item.Id" onclick="uruncikar(@item.Id)">Ürün Çıkar</button></td>
             </tr>
         }
     </tbody>
@@ -42,6 +43,7 @@
             url: '/Liste/UrunCikar/' + id,
             type: 'DELETE',
             success: function(result) {
+                $('#uruncikar_'+id).parent().parent().remove();
             }
         });
     }

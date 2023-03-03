@@ -1,8 +1,10 @@
-﻿using BitirmeOdev.Models;
+﻿using BitirmeOdev.Filters;
+using BitirmeOdev.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BitirmeOdev.Controllers
 {
+    [TypeFilter(typeof(AdminAuthFilter))]
     public class UrunController : Controller
     {
         private readonly DatabaseContext _context;
@@ -28,10 +30,14 @@ namespace BitirmeOdev.Controllers
         {
             if(ModelState.IsValid)
             {
-                _context.Urun.Add(urun);
-                int durum = _context.SaveChanges();
-                if (durum > 0)
-                    return RedirectToAction(nameof(Liste));
+                var varmi = _context.Urun.Any(x => x.Ad == urun.Ad);
+                if (!varmi)
+                {
+                    _context.Urun.Add(urun);
+                    int durum = _context.SaveChanges();
+                    if (durum > 0)
+                        return RedirectToAction(nameof(Liste));
+                }
             }
             return View(urun);
         }

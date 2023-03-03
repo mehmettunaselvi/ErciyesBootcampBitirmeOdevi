@@ -1,5 +1,7 @@
-﻿using BitirmeOdev.Models;
+﻿using BitirmeOdev.Extensions;
+using BitirmeOdev.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BitirmeOdev.Controllers
 {
@@ -31,6 +33,13 @@ namespace BitirmeOdev.Controllers
 
         public IActionResult Giris()
         {
+            if(HttpContext.Session.Keys.Any())
+            {
+                var kullanici = HttpContext.Session.GetObject<Kullanici>("kullanici");
+                if (!kullanici.Admin)
+                    return RedirectToAction("Index", "Liste");
+                return RedirectToAction("Liste", "Urun");
+            }
             return View();
         }
 
@@ -46,9 +55,21 @@ namespace BitirmeOdev.Controllers
 
                     return NotFound();
                 }
-                // TODO: Kullanıcıyı session'a at!
+                HttpContext.Session.SetObject("kullanici", kullanici);
+                if (HttpContext.Session.Keys.Any())
+                {
+                    if (!kullanici.Admin)
+                        return RedirectToAction("Index", "Liste");
+                    return RedirectToAction("Liste", "Urun");
+                }
             }
             return View();
+        }
+
+        public async Task<IActionResult> CikisYap()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

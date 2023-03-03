@@ -1,7 +1,7 @@
 ﻿@model List<BitirmeOdev.Models.Urun>
 
 <a href="/Urun/Ekle" class="btn btn-primary">Ekle</a>
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Ad</th>
@@ -18,7 +18,7 @@
                 <td>@item.Ad</td>
                 <td>@item.Aciklama</td>
                 <td>@item.Marka</td>
-                <td>@item.Gorsel</td>
+                <td><img src="@item.Gorsel" style="max-width:100px"/></td>
                 <td>
                     <a href="/Urun/Duzenle/@item.Id" class="btn btn-secondary">Düzenle</a>
                     <a href="/Urun/Sil/@item.Id" class="btn btn-danger">Sil</a>

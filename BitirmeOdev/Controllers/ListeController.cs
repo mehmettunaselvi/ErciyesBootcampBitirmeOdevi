@@ -2,9 +2,12 @@
 using BitirmeOdev.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BitirmeOdev.Filters;
+using BitirmeOdev.Extensions;
 
 namespace BitirmeOdev.Controllers
 {
+    [TypeFilter(typeof(AuthFilter))]
     public class ListeController : Controller
     {
         private readonly DatabaseContext _context;
@@ -16,10 +19,8 @@ namespace BitirmeOdev.Controllers
 
         public IActionResult Index()
         {
-            // TODO: Session'daki Kullanicinin ID'si ile sorgu yazılacak.
-            // Şimdilik hepsini döndürüyor.
-
-            List<Liste> liste = _context.Liste.ToList();
+            Kullanici kullanici = HttpContext.Session.GetObject<Kullanici>("kullanici");
+            List<Liste> liste = _context.Liste.Where(x => x.KullaniciId == kullanici.Id).ToList();
             return View(liste);
         }
 
@@ -43,12 +44,9 @@ namespace BitirmeOdev.Controllers
         [HttpPost]
         public IActionResult Detay(int id, Liste liste) // id == ListeId olacak
         {
-            if(ModelState.IsValid)
-            {
-                // Açıklama harici bilgiler formla birlikte geldiği için doğrudan kaydediyoruz.
-
-                _context.SaveChanges();
-            }
+            Liste _liste = _context.Liste.First(x => x.Id == id);
+            _liste.Aciklama = liste.Aciklama;
+            _context.SaveChanges();
             return RedirectToAction("Detay", id);
         }
 
@@ -62,18 +60,20 @@ namespace BitirmeOdev.Controllers
         {
             if(ModelState.IsValid)
             {
+                Kullanici kullanici = HttpContext.Session.GetObject<Kullanici>("kullanici");
+                liste.KullaniciId = kullanici.Id;
                 _context.Liste.Add(liste);
                 int durum = _context.SaveChanges();
                 if (durum > 0)
-                    return RedirectToAction(nameof(Liste));
+                    return RedirectToAction("Index");
             }
-            return View();
+            return View(liste);
         }
 
         public IActionResult Urunler(int? id) // id == ListeId olacak
         {
             List<Urun> urunler = _context.Urun.ToList();
-            ViewData["listeId"] = id;
+            ViewBag.listeId = id;
             return View(urunler);
         }
 
@@ -81,6 +81,7 @@ namespace BitirmeOdev.Controllers
         {
             Urun urun = _context.Urun.FirstOrDefault(x => x.Id == urunid);
             ViewData["urun"] = urun;
+            ViewBag.listeId = id;
             return View();
         }
 
@@ -97,6 +98,15 @@ namespace BitirmeOdev.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Detay", id);
+        }
+
+        [HttpDelete] // AJAX ile erişebilir olacak.
+        public IActionResult ListeSil(int id) // id == Liste Id
+        {
+            Liste liste = _context.Liste.Find(id);
+            _context.Liste.Remove(liste);
+            _context.SaveChanges();
+            return Ok();
         }
 
         [HttpDelete] // AJAX ile erişebilir olacak.

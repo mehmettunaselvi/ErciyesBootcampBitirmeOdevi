@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BitirmeOdev.Models
@@ -29,6 +30,9 @@ namespace BitirmeOdev.Models
 
         [Required, MinLength(8), MaxLength(16)]
         public string Sifre { get; set; }
+
+        [Required, DefaultValue(false)]
+        public bool Admin { get; set; }
 
         public virtual List<Liste> Listeler { get; set; }
     }

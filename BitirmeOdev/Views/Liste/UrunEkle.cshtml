@@ -7,11 +7,11 @@
 
 <p>@urun.Aciklama</p>
 
-<img src="@urun.Gorsel"/>
+<img src="@urun.Gorsel" style="max-width:250px"/>
 
 <hr />
 
-<form asp-action="UrunEkle" method="post">
+<form asp-action="UrunEkle" asp-route-id="@ViewBag.listeId" method="post">
   <input type="hidden" asp-for="UrunId" value="@urun.Id" />
   <div class="form-group">
     <label asp-for="Miktar"></label>

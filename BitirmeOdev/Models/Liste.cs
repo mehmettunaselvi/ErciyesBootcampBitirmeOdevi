@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BitirmeOdev.Models
@@ -22,6 +23,7 @@ namespace BitirmeOdev.Models
         [MaxLength(128)]
         public string Aciklama { get; set; }
 
+        [ValidateNever]
         public virtual Kullanici Kullanici { get; set; }
         public virtual List<ListUrun> ListUrun { get; set; }
     }

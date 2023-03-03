@@ -1,7 +1,7 @@
 ﻿@model List<BitirmeOdev.Models.Liste>
 
 <a href="Liste/Olustur" class="btn btn-primary">Ekle</a>
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Ad</th>
@@ -13,8 +13,24 @@
         {
             <tr>
                 <td>@item.Ad</td>
-                <td><a href="/Liste/Detay/@item.Id" class="btn btn-primary">Detay</a></td>
+                <td>
+                    <a href="/Liste/Detay/@item.Id" class="btn btn-primary">Detay</a>
+                    <button class="btn btn-danger" id="liste_@item.Id" onclick="listesil(@item.Id)">Sil</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<script>
+    function listesil(id) {
+        $.ajax({
+            url: '/Liste/UrunCikar/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                $('#liste_'+id).parent().parent().remove();
+            }
+        });
+    }
+</script>

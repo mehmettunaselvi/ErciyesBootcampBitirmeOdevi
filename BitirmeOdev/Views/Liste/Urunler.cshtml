@@ -1,10 +1,15 @@
 ﻿@model List<BitirmeOdev.Models.Urun>
 
-<table>
+@{
+    string url = "/Liste/UrunEkle/" + ViewBag.listeId + "?urunId=";
+}
+
+<table class="table">
     <thead>
         <tr>
             <th>Görsel</th>
             <th>Ad</th>
+            <th>Açıklama</th>
             <th></th>
         </tr>
     </thead>
@@ -12,9 +17,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td><img src="@item.Gorsel"/></td>
-                <td><@item.Marka @item.Ad /></td>
-                <td><a href="/Liste/UrunEkle/@ViewData["listId"]?urunId=@item.Id" class="btn btn-primary">Ekle</a></td>
+                <td><img src="@item.Gorsel" style="max-width:250px"/></td>
+                <td>@item.Marka @item.Ad</td>
+                <td>@item.Aciklama</td>
+                <td><a href="@url@item.Id" class="btn btn-primary">Ekle</a></td>
             </tr>
         }
     </tbody>
